@@ -85,8 +85,8 @@ function buy() {
                                 item_id: parseInt(answers.id)
                             }
                         ],
-                        function(err, res1) {
-                            if (err) throw err;
+                        function(err1, res1) {
+                            if (err1) throw err1;
                             // console.log(res1.affectedRows + " products upd5ated!\n");
                             // Call deleteProduct AFTER the UPDATE completes
                         }

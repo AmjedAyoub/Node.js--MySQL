@@ -56,13 +56,14 @@ function viewProducts() {
         if (err) throw err;
         // Log all results of the SELECT statement
         // for (let i = 0; i < res.length; i++) {
+        console.log("\n");
         console.table(res);
         console.log("\n");
         // console.log(res)
         // }
         // connection.end();
+        main_menu();
     });
-    main_menu();
 }
 
 function viewLowProducts() {
@@ -71,67 +72,82 @@ function viewLowProducts() {
         if (err) throw err;
         // Log all results of the SELECT statement
         // for (let i = 0; i < res.length; i++) {
+        console.log("\n");
         console.table(res);
         console.log("\n");
         // console.log(res)
         // }
         // connection.end();
+        main_menu();
     });
-    main_menu();
 }
 
 function addToInventory() {
-    console.log("hi");
-
-    inquirer
-        .prompt([
-            /* Pass your questions in here */
-            {
-                name: "id",
-                type: "input",
-                message: "Please enter the ID of the product you would like to add!",
-            },
-            {
-                name: "quantity",
-                type: "input",
-                message: "How many units of the product you would like to add?",
+    inquirer.prompt([{
+            name: "id",
+            type: "input",
+            message: "Please enter the item-id of the product you would like to add!"
+        },
+        {
+            name: "quan",
+            type: "input",
+            message: "How many units of the product you would like to add?"
+        }
+    ]).then(answers => {
+        connection.query("SELECT * FROM products WHERE item_id =" + answers.id, function(err, res) {
+            if (err) {
+                throw err;
             }
-
-        ])
-        .then(answers => {
-            // Use user feedback for... whatever!!
-            connection.query("SELECT * FROM products WHERE item_id =" + answers.id, function(err, res) {
-                if (err) throw err;
-                // Log all results of the SELECT statement
-                // console.log(res);
-                if (res[0].stock_quantity >= answers.quantity) {
-                    var query = connection.query(
-                        "UPDATE products SET ? WHERE ?", [{
-                                stock_quantity: parseFloat(res[0].stock_quantity) - parseFloat(answers.quantity)
-                            },
-                            {
-                                item_id: parseInt(answers.id)
-                            }
-                        ],
-                        function(err, res1) {
-                            if (err) throw err;
-                            // console.log(res1.affectedRows + " products upd5ated!\n");
-                            // Call deleteProduct AFTER the UPDATE completes
-                        }
-                    );
-                    console.log("Your purchase was successfully made \n Your total is " + parseFloat(res[0].price) * parseFloat(answers.quantity) + "\n\n<==================================>\n");
-                    connection.end();
-                    // askUser();
-                } else {
-                    console.log("Insufficient quantity!\nPlease try again later\n\n<==================================>\n");
-                    // askUser();
+            var quantity = res[0].stock_quantity;
+            connection.query("UPDATE products SET ? WHERE ?", [{
+                    stock_quantity: quantity + parseFloat(answers.quan)
+                },
+                {
+                    item_id: parseInt(answers.id)
                 }
-            });
+            ], function(err2, res2) {
+                if (err2) {
+                    throw err;
+                }
+                console.log("\nYour add was successfully made\n\n<==================================>\n");
+                main_menu();
+            })
+        })
+    })
 
-        });
-    main_menu();
 }
 
 function AddNewProduct() {
-    main_menu();
+    inquirer.prompt([{
+            name: "item_name",
+            type: "input",
+            message: "Please enter the item name!"
+        },
+        {
+            name: "dept_name",
+            type: "input",
+            message: "Please enter the department name!"
+        },
+        {
+            name: "price",
+            type: "input",
+            message: "Please enter the item price!"
+        },
+        {
+            name: "stock",
+            type: "input",
+            message: "Please enter the item quantity!"
+        }
+    ]).then(answers => {
+        connection.query("INSERT INTO products SET ?", {
+            product_name: answers.item_name,
+            department_name: answers.dept_name,
+            price: parseFloat(answers.price),
+            stock_quantity: parseFloat(answers.stock)
+        }, function(err, res) {
+            if (err) { throw err; }
+            console.log("\nYour add was successfully made\n\n<==================================>\n");
+            main_menu();
+        })
+    })
 }
