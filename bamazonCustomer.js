@@ -18,7 +18,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
-    showProducts();
+    askUser();
 });
 
 function showProducts() {
@@ -27,15 +27,34 @@ function showProducts() {
         if (err) throw err;
         // Log all results of the SELECT statement
         // for (let i = 0; i < res.length; i++) {
+        console.log("\n");
         console.table(res);
+        console.log("\n===============================================================\n");
         // console.log(res)
         // }
-        askUser();
+        buy();
     });
 }
 
-
 function askUser() {
+    inquirer.prompt([{
+        name: "whattodo",
+        type: "list",
+        message: "What you want to do?",
+        choices: ["Buy  Products", "Quit"]
+    }]).then(answer => {
+        if (answer.whattodo === "Buy  Products") {
+            showProducts();
+            console.log("\n");
+        }
+        if (answer.whattodo === "Quit") {
+            connection.end();
+        }
+    })
+
+}
+
+function buy() {
     inquirer
         .prompt([
             /* Pass your questions in here */
@@ -72,10 +91,12 @@ function askUser() {
                             // Call deleteProduct AFTER the UPDATE completes
                         }
                     );
-                    console.log("Your purchase was successfully made \n Your total is " + parseFloat(res[0].price) * parseFloat(answers.quantity) + "\n\n<==================================>");
+                    console.log("\nYour purchase was successfully made \n Your total is " + parseFloat(res[0].price) * parseFloat(answers.quantity) + "\n\n<==================================>\n");
+                    console.log("\n");
                     askUser();
                 } else {
-                    console.log("Insufficient quantity!\nPlease try again later\n\n<==================================>");
+                    console.log("\nInsufficient quantity!\nPlease try again later\n\n<==================================>\n");
+                    console.log("\n");
                     askUser();
                 }
             });

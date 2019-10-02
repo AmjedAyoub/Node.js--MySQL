@@ -72,6 +72,7 @@ function viewLowProducts() {
         // Log all results of the SELECT statement
         // for (let i = 0; i < res.length; i++) {
         console.table(res);
+        console.log("\n");
         // console.log(res)
         // }
         // connection.end();
@@ -118,11 +119,11 @@ function addToInventory() {
                             // Call deleteProduct AFTER the UPDATE completes
                         }
                     );
-                    console.log("Your purchase was successfully made \n Your total is " + parseFloat(res[0].price) * parseFloat(answers.quantity) + "\n\n<==================================>");
+                    console.log("Your purchase was successfully made \n Your total is " + parseFloat(res[0].price) * parseFloat(answers.quantity) + "\n\n<==================================>\n");
                     connection.end();
                     // askUser();
                 } else {
-                    console.log("Insufficient quantity!\nPlease try again later\n\n<==================================>");
+                    console.log("Insufficient quantity!\nPlease try again later\n\n<==================================>\n");
                     // askUser();
                 }
             });
