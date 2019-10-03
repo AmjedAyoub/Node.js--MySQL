@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+const cTable = require('console.table');
 
 var connection = mysql.createConnection({
     host: "Localhost",
@@ -29,7 +30,7 @@ function main_menu() {
                 name: "main",
                 type: "list",
                 message: "What would you like to do?",
-                choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
+                choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Quit"]
             }
         ])
         .then(answers => {
@@ -45,6 +46,9 @@ function main_menu() {
             }
             if (answers.main === "Add New Product") {
                 AddNewProduct();
+            }
+            if (answers.main === "Quit") {
+                connection.end();
             }
         });
     console.log("\n");

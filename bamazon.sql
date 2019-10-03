@@ -8,28 +8,48 @@ CREATE TABLE products (
   item_id INT NOT NULL AUTO_INCREMENT,
   product_name VARCHAR(100) NOT NULL,
   department_name VARCHAR(100),
-  price INTEGER(10) NOT NULL,
-  stock_quantity INTEGER(10),
+  price DECIMAL(65,8) NOT NULL,
+  stock_quantity DECIMAL(65,8),
+  product_sales DECIMAL(65,8) DEFAULT 0,
   PRIMARY KEY (item_id)
 );
 
+CREATE TABLE departments (
+  department_id INT NOT NULL AUTO_INCREMENT,
+  department_name VARCHAR(100) NOT NULL,
+  over_head_costs DECIMAL(65,8) NOT NULL,
+  PRIMARY KEY (department_id)
+);
+
+
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item1", "dep1", 10, 10);
+VALUES ("Light", "Electronics", 10, 40);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item2", "dep2", 10, 10);
+VALUES ("Jeans", "Clothing", 15, 60);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item3", "dep3", 10, 10);
+VALUES ("Dryer", "Electronics", 50, 20);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item4", "dep4", 10, 10);
+VALUES ("T-Shirt", "Clothing", 10, 80);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item5", "dep5", 10, 10);
+VALUES ("HDMI Cable", "Electronics", 5, 100);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item6", "dep6", 10, 10);
+VALUES ("Skirt", "Clothing", 20, 40);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item7", "dep7", 10, 10);
+VALUES ("Chair", "Furniture", 80, 10);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item8", "dep8", 10, 10);
+VALUES ("Bed", "Furniture", 200, 10);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item9", "dep9", 10, 10);
+VALUES ("Pin", "Office", 2, 200);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("item10", "dep10", 10, 10);
+VALUES ("Pincel", "Office", 1.5, 500);
+
+
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Electronics", 50);
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Clothing", 60);
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Furniture", 40);
+INSERT INTO departments (department_name, over_head_costs)
+VALUES ("Office", 40);

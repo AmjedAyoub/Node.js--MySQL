@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+const cTable = require('console.table');
 
 var connection = mysql.createConnection({
     host: "Localhost",
@@ -79,7 +80,8 @@ function buy() {
                 if (res[0].stock_quantity >= answers.quantity) {
                     var query = connection.query(
                         "UPDATE products SET ? WHERE ?", [{
-                                stock_quantity: parseFloat(res[0].stock_quantity) - parseFloat(answers.quantity)
+                                stock_quantity: parseFloat(res[0].stock_quantity) - parseFloat(answers.quantity),
+                                product_sales: res[0].product_sales + parseFloat(res[0].price) * parseFloat(answers.quantity)
                             },
                             {
                                 item_id: parseInt(answers.id)
