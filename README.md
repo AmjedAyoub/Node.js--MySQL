@@ -4,6 +4,21 @@
 
 This app will take in orders from `customers`, `managers` and `supervisors`. The customers will be able to view and buy products, managers will manage the stock and the store's inventory, supervisers will be able to track product sales across the store's departments and then provide a summary of the highest-grossing departments in the store.
 
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine.
+
+### Installing
+Git clone the repository to your local machine:
+
+HTTPS:
+```
+https://github.com/AmjedAyoub/Node.js--MySQL.git
+```
+SSH:
+```
+git@github.com:AmjedAyoub/Node.js--MySQL.git
+```
+
 ## How to use
 
 `Node.js--MySQL` is a command line node app that takes in parameters and gives you back data. So all users will be able to use it through the terminal.
@@ -128,10 +143,15 @@ After adding a new department, a message will appear and tell you that `Your add
 
 
   
+## Technologies & Tools
+* Node.js 
+* MYSQL - MySQL Database
 
-## Link
-https://github.com/AmjedAyoub/Node.js--MySQL
+## Links
+This application is published on [GitHub](https://github.com/AmjedAyoub/Node.js--MySQL).
 
-## Technologies
-* node.js
-* mysql
+## Authors
+See contribution history [here](https://github.com/AmjedAyoub/Node.js--MySQL/graphs/contributors).
+
+## Future updates
+At the moment, this app is the minimum viable product. For future updates; more functionality and features to add.
